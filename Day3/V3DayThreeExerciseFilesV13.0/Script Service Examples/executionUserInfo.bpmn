@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="executionUserInfo" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_1pr6i4g</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1pr6i4g" sourceRef="StartEvent_1" targetRef="Task_1k8z56p"/>
+    <bpmn2:scriptTask id="Task_1k8z56p" name="check user info" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value=""/>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1pr6i4g</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1kkknq4</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[execution.setVariable('id', execution.domainId())
+execution.setVariable('user', execution.userId())
+execution.setVariable('displayName', execution.userDisplayName())
+execution.setVariable('anon', execution.isAnonymous())
+]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1kkknq4" sourceRef="Task_1k8z56p" targetRef="Task_1jlz5x1"/>
+    <bpmn2:userTask id="Task_1jlz5x1" name="say ${id} and ${user} and ${displayName} and ${anon}">
+      <bpmn2:incoming>SequenceFlow_1kkknq4</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0raf9lt</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_02b6ob4">
+      <bpmn2:incoming>SequenceFlow_0raf9lt</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_0raf9lt" sourceRef="Task_1jlz5x1" targetRef="EndEvent_02b6ob4"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="180" y="170" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1pr6i4g_di" bpmnElement="SequenceFlow_1pr6i4g">
+        <di:waypoint xsi:type="dc:Point" x="216" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="282" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="249" y="167" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_04h1ffi_di" bpmnElement="Task_1k8z56p">
+        <dc:Bounds x="282" y="148" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1kkknq4_di" bpmnElement="SequenceFlow_1kkknq4">
+        <di:waypoint xsi:type="dc:Point" x="402" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="473" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="437.5" y="167" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1fqpvpj_di" bpmnElement="Task_1jlz5x1">
+        <dc:Bounds x="473" y="148" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_02b6ob4_di" bpmnElement="EndEvent_02b6ob4">
+        <dc:Bounds x="646" y="170" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="664" y="210" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0raf9lt_di" bpmnElement="SequenceFlow_0raf9lt">
+        <di:waypoint xsi:type="dc:Point" x="593" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="646" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="619.5" y="167" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

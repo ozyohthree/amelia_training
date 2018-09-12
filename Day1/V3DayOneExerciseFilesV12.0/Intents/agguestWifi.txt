@@ -1,0 +1,40 @@
+agGuestWifi	A visitor coming to our company and needs to get online.
+agGuestWifi	Absolutely must get wifi access for some guests
+agGuestWifi	Because of a meeting, have to obtain internet connection for client visiting.
+agGuestWifi	Bringing someone to our organization who needs internet at our company.
+agGuestWifi	Can I have internet access for a guest to our company?
+agGuestWifi	Checking on getting connection to wifi for a company guest.
+agGuestWifi	Connection to internet for customer appointment
+agGuestWifi	Date for client conversation next week and need connection for him
+agGuestWifi	During upcoming appointment, client wifi desirous
+agGuestWifi	Email check needed so guest needs internet access
+agGuestWifi	Establish connection to Internet for someone visiting our company.
+agGuestWifi	For an upcoming meeting, have to get access to internet for visitors to office.
+agGuestWifi	Get me wifi connection for someone coming to visit.
+agGuestWifi	Give internet to guest to company
+agGuestWifi	Have someone coming and need wireless connection
+agGuestWifi	Help with Internet and connect guest it
+agGuestWifi	Hope for guest wifi
+agGuestWifi	I must get guest internet access.
+agGuestWifi	I'd like to gain connection to wifi for visitor.
+agGuestWifi	Internet for guest visitor
+agGuestWifi	Just need wifi password for someone who is coming to company for meeting
+agGuestWifi	Kindly provide password for guest wifi
+agGuestWifi	Login for guest to our wifi
+agGuestWifi	Make sure Internet provided to person visiting us
+agGuestWifi	May i have wifi access for guest?
+agGuestWifi	Meeting and have to get connection to internet for others
+agGuestWifi	Next week there are people here so need to connect to wifi
+agGuestWifi	Online connection for guest coming to meeting
+agGuestWifi	Our guests need wifi access when here to discuss business.
+agGuestWifi	Participants for company event wifi access needed
+agGuestWifi	Please internet connection for those attending meeting
+agGuestWifi	Registering guests for wifi access please
+agGuestWifi	Request for internet connection to visitors
+agGuestWifi	Sales call with clients so wifi needed for them
+agGuestWifi	Several people need guest internet passwords
+agGuestWifi	Since we are meeting with visitors who have to connect online, get access for them
+agGuestWifi	There's some people who need access for guests to wifi
+agGuestWifi	Use of wifi for those visiting needed.
+agGuestWifi	Visitors internet connection please.
+agGuestWifi	Want guest wifi access

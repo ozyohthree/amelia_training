@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="bpnCosineDistanceChoiceHandler" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_07x8be4</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_07x8be4" sourceRef="StartEvent_1" targetRef="Task_108auhb"/>
+    <bpmn2:userTask id="Task_108auhb" name="ask &quot;Why do you want to eat some food?&quot;">
+      <bpmn2:extensionElements>
+        <prop:property name="ask_slot_question_id" value="dfccdae0-9d2e-404a-a2d2-0e56e15c87b8"/>
+        <prop:property name="ask_first_pass_behavior" value="AlwaysAsk"/>
+        <prop:property name="ask_subsequent_pass_behavior" value="AlwaysAsk"/>
+        <prop:property name="choice_similarity_algorithm" value="cosineDistance"/>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_07x8be4</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1kyb5h3</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_0fb396p</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_1p74587</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1kyb5h3" name="bpn:choice('i have not eaten yet today')" sourceRef="Task_108auhb" targetRef="Task_1732ndu">
+      <bpmn2:extensionElements>
+        <prop:property name="expression" value="bpn:choice('i have not eaten yet today')"/>
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:userTask id="Task_1732ndu" name="say didn't eat yet today">
+      <bpmn2:incoming>SequenceFlow_1kyb5h3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_136pnfg</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_1k4fa28">
+      <bpmn2:incoming>SequenceFlow_136pnfg</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_0vr9l6a</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_0a0zbvs</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_136pnfg" sourceRef="Task_1732ndu" targetRef="EndEvent_1k4fa28"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_0fb396p" name="bpn:choice('super hungry after a long day')" sourceRef="Task_108auhb" targetRef="Task_0rvafk2">
+      <bpmn2:extensionElements>
+        <prop:property name="expression" value="bpn:choice('super hungry after a long day')"/>
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_0vr9l6a" sourceRef="Task_0rvafk2" targetRef="EndEvent_1k4fa28"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_1p74587" name="bpn:choice('it is time for lunch')" sourceRef="Task_108auhb" targetRef="Task_1iyivjr">
+      <bpmn2:extensionElements>
+        <prop:property name="expression" value="bpn:choice('it is time for lunch')"/>
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_0a0zbvs" sourceRef="Task_1iyivjr" targetRef="EndEvent_1k4fa28"/>
+    <bpmn2:userTask id="Task_0rvafk2" name="say super hungry">
+      <bpmn2:incoming>SequenceFlow_0fb396p</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0vr9l6a</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:userTask id="Task_1iyivjr" name="say time for lunch">
+      <bpmn2:incoming>SequenceFlow_1p74587</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0a0zbvs</bpmn2:outgoing>
+    </bpmn2:userTask>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="180" y="170" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_07x8be4_di" bpmnElement="SequenceFlow_07x8be4">
+        <di:waypoint xsi:type="dc:Point" x="216" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="265" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="195.5" y="167" width="90" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0s51gn6_di" bpmnElement="Task_108auhb">
+        <dc:Bounds x="265" y="148" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1kyb5h3_di" bpmnElement="SequenceFlow_1kyb5h3">
+        <di:waypoint xsi:type="dc:Point" x="315" y="148"/>
+        <di:waypoint xsi:type="dc:Point" x="315" y="-34"/>
+        <di:waypoint xsi:type="dc:Point" x="567" y="-34"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="444.5" y="-76" width="89" height="36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_07uzml4_di" bpmnElement="Task_1732ndu">
+        <dc:Bounds x="567" y="-74" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1k4fa28_di" bpmnElement="EndEvent_1k4fa28">
+        <dc:Bounds x="741" y="170" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="714" y="210" width="90" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_136pnfg_di" bpmnElement="SequenceFlow_136pnfg">
+        <di:waypoint xsi:type="dc:Point" x="687" y="-34"/>
+        <di:waypoint xsi:type="dc:Point" x="759" y="-34"/>
+        <di:waypoint xsi:type="dc:Point" x="759" y="170"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="678" y="-55" width="90" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0fb396p_di" bpmnElement="SequenceFlow_0fb396p">
+        <di:waypoint xsi:type="dc:Point" x="385" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="567" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="367" y="126" width="88" height="36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0vr9l6a_di" bpmnElement="SequenceFlow_0vr9l6a">
+        <di:waypoint xsi:type="dc:Point" x="687" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="741" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="669" y="167" width="90" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1p74587_di" bpmnElement="SequenceFlow_1p74587">
+        <di:waypoint xsi:type="dc:Point" x="315" y="228"/>
+        <di:waypoint xsi:type="dc:Point" x="315" y="395"/>
+        <di:waypoint xsi:type="dc:Point" x="583" y="395"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="439.7579908675799" y="347" width="76" height="24"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0a0zbvs_di" bpmnElement="SequenceFlow_0a0zbvs">
+        <di:waypoint xsi:type="dc:Point" x="703" y="395"/>
+        <di:waypoint xsi:type="dc:Point" x="759" y="395"/>
+        <di:waypoint xsi:type="dc:Point" x="759" y="206"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="686" y="374" width="90" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0z03gm4_di" bpmnElement="Task_0rvafk2">
+        <dc:Bounds x="567" y="148" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_127rnbz_di" bpmnElement="Task_1iyivjr">
+        <dc:Bounds x="583" y="355" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

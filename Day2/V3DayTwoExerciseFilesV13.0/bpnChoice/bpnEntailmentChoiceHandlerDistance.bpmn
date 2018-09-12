@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?><bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="bpnEntailmentChoiceHandlerDistance" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_07x8be4</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_07x8be4" sourceRef="StartEvent_1" targetRef="Task_108auhb"/>
+    <bpmn2:userTask id="Task_108auhb" name="ask &quot;Why do you want to get a new car?&quot;">
+      <bpmn2:extensionElements>
+        <prop:property name="ask_slot_question_id" value="dfccdae0-9d2e-404a-a2d2-0e56e15c87b8"/>
+        <prop:property name="ask_first_pass_behavior" value="AlwaysAsk"/>
+        <prop:property name="ask_subsequent_pass_behavior" value="AlwaysAsk"/>
+        <prop:property name="choice_similarity_algorithm" value="entailment"/>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_07x8be4</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1kyb5h3</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_0joxtet</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_1jcju36</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1kyb5h3" name="bpn:choice('car broke down')" sourceRef="Task_108auhb" targetRef="Task_1732ndu">
+      <bpmn2:extensionElements>
+        <prop:property name="expression" value="bpn:choice('car broke down')"/>
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_0joxtet" name="bpn:choice('won the lottery')" sourceRef="Task_108auhb" targetRef="Task_1h4psyk">
+      <bpmn2:extensionElements>
+        <prop:property name="expression" value="bpn:choice('won the lottery')"/>
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:userTask id="Task_1732ndu" name="say current car not working">
+      <bpmn2:incoming>SequenceFlow_1kyb5h3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_136pnfg</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:userTask id="Task_1h4psyk" name="say won the lottery">
+      <bpmn2:incoming>SequenceFlow_0joxtet</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1iudsm9</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_1k4fa28">
+      <bpmn2:incoming>SequenceFlow_1iudsm9</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_136pnfg</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_114rn9u</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1iudsm9" sourceRef="Task_1h4psyk" targetRef="EndEvent_1k4fa28"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_136pnfg" sourceRef="Task_1732ndu" targetRef="EndEvent_1k4fa28"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_1jcju36" name="bpn:choice('my first car')" sourceRef="Task_108auhb" targetRef="Task_0wsmtr9">
+      <bpmn2:extensionElements>
+        <prop:property name="expression" value="bpn:choice('my first car')"/>
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:userTask id="Task_0wsmtr9" name="say never had a car before">
+      <bpmn2:incoming>SequenceFlow_1jcju36</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_114rn9u</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_114rn9u" sourceRef="Task_0wsmtr9" targetRef="EndEvent_1k4fa28"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="180" y="170" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_07x8be4_di" bpmnElement="SequenceFlow_07x8be4">
+        <di:waypoint xsi:type="dc:Point" x="216" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="265" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="195.5" y="167" width="90" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0s51gn6_di" bpmnElement="Task_108auhb">
+        <dc:Bounds x="265" y="148" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1kyb5h3_di" bpmnElement="SequenceFlow_1kyb5h3">
+        <di:waypoint xsi:type="dc:Point" x="315" y="148"/>
+        <di:waypoint xsi:type="dc:Point" x="315" y="-36"/>
+        <di:waypoint xsi:type="dc:Point" x="538" y="-36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="429.5281385281385" y="-82" width="76" height="24"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0joxtet_di" bpmnElement="SequenceFlow_0joxtet">
+        <di:waypoint xsi:type="dc:Point" x="385" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="538" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="441.3646408839779" y="136" width="80" height="24"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_07uzml4_di" bpmnElement="Task_1732ndu">
+        <dc:Bounds x="538" y="-76" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0tbrwq2_di" bpmnElement="Task_1h4psyk">
+        <dc:Bounds x="538" y="163" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1k4fa28_di" bpmnElement="EndEvent_1k4fa28">
+        <dc:Bounds x="727" y="185" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="700" y="225" width="90" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1iudsm9_di" bpmnElement="SequenceFlow_1iudsm9">
+        <di:waypoint xsi:type="dc:Point" x="658" y="203"/>
+        <di:waypoint xsi:type="dc:Point" x="727" y="203"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="647.5" y="182" width="90" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_136pnfg_di" bpmnElement="SequenceFlow_136pnfg">
+        <di:waypoint xsi:type="dc:Point" x="658" y="-36"/>
+        <di:waypoint xsi:type="dc:Point" x="687" y="-36"/>
+        <di:waypoint xsi:type="dc:Point" x="687" y="203"/>
+        <di:waypoint xsi:type="dc:Point" x="727" y="203"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="657" y="77.5" width="90" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1jcju36_di" bpmnElement="SequenceFlow_1jcju36">
+        <di:waypoint xsi:type="dc:Point" x="315" y="228"/>
+        <di:waypoint xsi:type="dc:Point" x="315" y="391"/>
+        <di:waypoint xsi:type="dc:Point" x="538" y="391"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="393.82683982683983" y="332" width="75" height="24"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0qnpl27_di" bpmnElement="Task_0wsmtr9">
+        <dc:Bounds x="538" y="351" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_114rn9u_di" bpmnElement="SequenceFlow_114rn9u">
+        <di:waypoint xsi:type="dc:Point" x="658" y="391"/>
+        <di:waypoint xsi:type="dc:Point" x="687" y="391"/>
+        <di:waypoint xsi:type="dc:Point" x="687" y="203"/>
+        <di:waypoint xsi:type="dc:Point" x="727" y="203"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="657" y="291" width="90" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

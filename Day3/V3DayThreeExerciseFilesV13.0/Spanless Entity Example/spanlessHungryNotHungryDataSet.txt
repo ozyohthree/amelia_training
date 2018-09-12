@@ -1,0 +1,69 @@
+hungry	any food around here as i am in desperate need
+hungry	been unable to eat all day
+hungry	Cannot go on without some food now
+hungry	Didn't consume anything edible at all
+hungry	Every time I tried to go for lunch I couldn't
+hungry	Forgot to have anything to fill my stomach today
+hungry	give me food immediately
+hungry	haven't eaten in days
+hungry	i couldn't continue without something to eat
+hungry	Just made time to have some food but haven't so far
+hungry	Last time I ate was yesterday
+hungry	my stomach is so empty
+hungry	no way to go on because must get yummy treats in belly
+hungry	obtain food now or i will die
+hungry	provide me with sustenance else i fall
+hungry	quickly I must fed as I am starved
+hungry	really must devour meal as soon as possible
+hungry	skipped breakfast and need nourishment
+hungry	terribly hungry
+hungry	under nourished and ravenous so eat now
+hungry	victuals are a must at this time
+hungry	Where's the food cause I'm starved
+hungry	You must feed me
+notHungry	absolutely no more edibles thanks
+notHungry	Been snacking all day and can't have anything else
+notHungry	completely satisfied and don't want food
+notHungry	don't think I can consume another bite
+notHungry	full as can be so nothing for me
+notHungry	glutted to the core and cannot have more
+notHungry	huge breakfast and not hungry
+notHungry	i really don't want to eat anything more
+notHungry	just had lunch and couldn't eat another bite
+notHungry	Keep the food away from me or I will throw up as I am full
+notHungry	lost my appetite
+notHungry	my stomach is completely full
+notHungry	no meal necessary as I am completely satiated
+notHungry	only way I could eat more would be to vomit first
+notHungry	pass as I am completely stuffed
+notHungry	quit eating a while ago and cannot consume more
+notHungry	really gorged earlier so nothing for me
+notHungry	sated and shunning any more edibles
+notHungry	totally full
+notHungry	Unable to have another meal
+notHungry	vittels are not something I could eat any more of
+notHungry	we aren't in the mood to eat anything else
+notHungry	you have to take the food away or I will explode
+	any people around here who know anything about telephony
+	believe me when i tell you that no one is ever alway correct
+	can't go on without taking a nap
+	dogs love to eat all day long
+	even if I wanted to, I can't go to the dinner
+	from the time I was a child, I was never allowed to eat peanuts
+	glad to see you are not sad
+	happy that everything worked out for all of us
+	it's been a big relief winning the lottery
+	Jumping at the chance to be full of love
+	Looking for an opportunity that satiates my sense of good
+	my life is completely busy and very hectic
+	not really interested in going to the zoo
+	on the off chance, do you happen to have any food
+	please don't go it alone
+	quit telling me I can't have anything to eat
+	really sunny outside today
+	Some people never want to have healthy food
+	that looks healthy but i don't want to join you for a run
+	Unsure why vegans refuse to eat meals made from animals
+	Very sure that there is nothing wrong with that dish
+	what's for lunch in the cafeteria next week
+	You only live once

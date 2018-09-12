@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="presentImage" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_10q1yno</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_10q1yno" sourceRef="StartEvent_1" targetRef="Task_1dqsou0" />
+    <bpmn2:userTask id="Task_1dqsou0" name="present breakfastMenu.jpg from roomservice">
+      <bpmn2:extensionElements>
+        <prop:property name="preview_style" value="inline_and_Popup" />
+        <prop:property name="download" value="no" />
+        <prop:property name="display_cm_resource_details" value="no" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_10q1yno</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0xxz4g9</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_0y71e9s">
+      <bpmn2:incoming>SequenceFlow_0xxz4g9</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_0xxz4g9" sourceRef="Task_1dqsou0" targetRef="EndEvent_0y71e9s" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="180" y="170" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_10q1yno_di" bpmnElement="SequenceFlow_10q1yno">
+        <di:waypoint xsi:type="dc:Point" x="216" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="312" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="264" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1e0fav3_di" bpmnElement="Task_1dqsou0">
+        <dc:Bounds x="312" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0y71e9s_di" bpmnElement="EndEvent_0y71e9s">
+        <dc:Bounds x="491" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="509" y="210" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0xxz4g9_di" bpmnElement="SequenceFlow_0xxz4g9">
+        <di:waypoint xsi:type="dc:Point" x="432" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="491" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="461.5" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

@@ -1,0 +1,10 @@
+agGuestWifi	Asking for internet access for company visitor
+agGuestWifi	Believe we want our guests to have wifi access
+agGuestWifi	Can i arrange passwords for Wi-Fi for a vendor coming to the office?
+agGuestWifi	Do you provide guest WiFi passwords?
+agGuestWifi	Everyone coming to visit needs internet connection.
+agGuestWifi	Future need for internet connection people visiting company
+agGuestWifi	Got to have guest wireless passwords
+agGuestWifi	Help me with wifi connection for visitor
+agGuestWifi	I want guest wifi access
+agGuestWifi	job being done by consultants in office and need internet connection

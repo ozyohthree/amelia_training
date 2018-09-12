@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="userServiceGetName" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_1p8qpgc</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1p8qpgc" sourceRef="StartEvent_1" targetRef="Task_1j9j9cr"/>
+    <bpmn2:scriptTask id="Task_1j9j9cr" name="gets user login in first and last name" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value=""/>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1p8qpgc</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1ncrlbh</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[def user = userService.getUser()
+def firstName = user.firstName()
+def lastName = user.lastName()
+def emailAddress = user.email()
+execution.setVariable("firstName", firstName)
+execution.setVariable("lastName", lastName)
+execution.setVariable("email", emailAddress)
+
+
+
+]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1ncrlbh" sourceRef="Task_1j9j9cr" targetRef="Task_0g15v8o"/>
+    <bpmn2:userTask id="Task_0g15v8o" name="say ${firstName}">
+      <bpmn2:incoming>SequenceFlow_1ncrlbh</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0raqjwc</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0raqjwc" sourceRef="Task_0g15v8o" targetRef="Task_0nis28d"/>
+    <bpmn2:userTask id="Task_0nis28d" name="say ${lastName}">
+      <bpmn2:incoming>SequenceFlow_0raqjwc</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0gidql2</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0gidql2" sourceRef="Task_0nis28d" targetRef="Task_1mw7p61"/>
+    <bpmn2:userTask id="Task_1mw7p61" name="say your email address is ${email}">
+      <bpmn2:incoming>SequenceFlow_0gidql2</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1pk2agr</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_15h9b9v">
+      <bpmn2:incoming>SequenceFlow_1pk2agr</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1pk2agr" sourceRef="Task_1mw7p61" targetRef="EndEvent_15h9b9v"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="180" y="170" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1p8qpgc_di" bpmnElement="SequenceFlow_1p8qpgc">
+        <di:waypoint xsi:type="dc:Point" x="216" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="307" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="261.5" y="166.5" width="0" height="13"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_0yfyass_di" bpmnElement="Task_1j9j9cr">
+        <dc:Bounds x="307" y="148" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ncrlbh_di" bpmnElement="SequenceFlow_1ncrlbh">
+        <di:waypoint xsi:type="dc:Point" x="427" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="472" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="404.5" y="166.5" width="90" height="13"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1e6v6ye_di" bpmnElement="Task_0g15v8o">
+        <dc:Bounds x="472" y="148" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0raqjwc_di" bpmnElement="SequenceFlow_0raqjwc">
+        <di:waypoint xsi:type="dc:Point" x="592" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="620" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="561" y="166.5" width="90" height="13"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1y4a90w_di" bpmnElement="Task_0nis28d">
+        <dc:Bounds x="620" y="148" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0gidql2_di" bpmnElement="SequenceFlow_0gidql2">
+        <di:waypoint xsi:type="dc:Point" x="740" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="782" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="761" y="167" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_08ejcj8_di" bpmnElement="Task_1mw7p61">
+        <dc:Bounds x="782" y="148" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_15h9b9v_di" bpmnElement="EndEvent_15h9b9v">
+        <dc:Bounds x="950" y="170" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="968" y="210" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1pk2agr_di" bpmnElement="SequenceFlow_1pk2agr">
+        <di:waypoint xsi:type="dc:Point" x="902" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="950" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="926" y="167" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

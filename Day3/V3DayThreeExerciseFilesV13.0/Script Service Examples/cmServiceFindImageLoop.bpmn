@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="cmServiceFindImageLoop" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_0i3bxit</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_0i3bxit" sourceRef="StartEvent_1" targetRef="Task_0km1iyg"/>
+    <bpmn2:scriptTask id="Task_0km1iyg" name="gets imageId and content type" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value=""/>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_0i3bxit</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1ge889m</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[def bucket = cmService.getBucketResources('hotel')
+
+for(i = 0; i < bucket.size(); i++){
+    if(bucket[i].objectName().matches('hotel-generic.jpg')){
+        def imageId = bucket[i].objectId()
+        def contentType = bucket[i].contentType()
+        def name = bucket[i].objectName()
+        
+        execution.setVariable('imageId', imageId)
+        execution.setVariable('contentType', contentType)
+        execution.setVariable('name', name)
+    }
+}
+
+
+]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1ge889m" sourceRef="Task_0km1iyg" targetRef="Task_0dxdg2o"/>
+    <bpmn2:userTask id="Task_0dxdg2o" name="say ${imageId} and ${contentType} and ${name}">
+      <bpmn2:incoming>SequenceFlow_1ge889m</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1sov36w</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1sov36w" sourceRef="Task_0dxdg2o" targetRef="Task_1ckml4w"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_06hpvu4" sourceRef="Task_1ckml4w" targetRef="Task_1oeve00"/>
+    <bpmn2:userTask id="Task_1oeve00" name="say ${imageUrl}">
+      <bpmn2:incoming>SequenceFlow_06hpvu4</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0b2syk7</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_03zkhrt">
+      <bpmn2:incoming>SequenceFlow_0b2syk7</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_0b2syk7" sourceRef="Task_1oeve00" targetRef="EndEvent_03zkhrt"/>
+    <bpmn2:scriptTask id="Task_1ckml4w" name="say get url" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value=""/>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1sov36w</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_06hpvu4</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[def imageId = execution.getVariable('imageId')
+
+imageId = imageId.toString()
+
+def imageUrl = cmService.getResourceUrl(imageId)
+
+execution.setVariable('imageUrl', imageUrl)]]></bpmn2:script>
+    </bpmn2:scriptTask>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="180" y="170" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0i3bxit_di" bpmnElement="SequenceFlow_0i3bxit">
+        <di:waypoint xsi:type="dc:Point" x="216" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="290" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="253" y="167" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_1v58g2f_di" bpmnElement="Task_0km1iyg">
+        <dc:Bounds x="290" y="148" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ge889m_di" bpmnElement="SequenceFlow_1ge889m">
+        <di:waypoint xsi:type="dc:Point" x="410" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="490" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="405" y="167" width="90" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1rg2m7p_di" bpmnElement="Task_0dxdg2o">
+        <dc:Bounds x="490" y="148" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1sov36w_di" bpmnElement="SequenceFlow_1sov36w">
+        <di:waypoint xsi:type="dc:Point" x="610" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="693" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="606.5" y="167" width="90" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_06hpvu4_di" bpmnElement="SequenceFlow_06hpvu4">
+        <di:waypoint xsi:type="dc:Point" x="813" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="851" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="787" y="167" width="90" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0wu2tfg_di" bpmnElement="Task_1oeve00">
+        <dc:Bounds x="851" y="148" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_03zkhrt_di" bpmnElement="EndEvent_03zkhrt">
+        <dc:Bounds x="1022" y="170" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1040" y="210" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0b2syk7_di" bpmnElement="SequenceFlow_0b2syk7">
+        <di:waypoint xsi:type="dc:Point" x="971" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="1022" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="996.5" y="167" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_1ix2pj4_di" bpmnElement="Task_1ckml4w">
+        <dc:Bounds x="693" y="148" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

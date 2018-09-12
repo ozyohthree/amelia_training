@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="mapExample" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_0fp34ym</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_0fp34ym" sourceRef="StartEvent_1" targetRef="Task_0qtepga" />
+    <bpmn2:scriptTask id="Task_0qtepga" name="map" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_0fp34ym</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_04u5uys</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[def pizza = [menu: "lunch", cost: "\$5.25", timing: "15 minutes"]
+def pancakes = [menu: "breakfast", cost: "\$3.50", timing: "10 minutes"]
+def salad = [menu: "lunch", cost: "\$4.35", timing: "5 minutes"]
+def tacos = [menu: "dinner", cost: "\$6.15", timing: "12 minutes"]
+def omelette = [menu: "breakfast", cost: "\$4.25", timing: "8 minutes"]
+def lobster = [menu: "dinner", cost: "\$10.95", timing: "25 minutes"]
+
+execution.setVariable('pizza', pizza)
+execution.setVariable('pancakes', pancakes)
+execution.setVariable('salad', salad)
+execution.setVariable('tacos', tacos)
+execution.setVariable('lobster', lobster)
+execution.setVariable('omelette', omelette)]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_04u5uys" sourceRef="Task_0qtepga" targetRef="Task_02qi9x5" />
+    <bpmn2:userTask id="Task_02qi9x5" name="say if you order a pizza, it will take ${pizza[&#39;timing&#39;]}">
+      <bpmn2:incoming>SequenceFlow_04u5uys</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_14ilbym</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_14ilbym" sourceRef="Task_02qi9x5" targetRef="Task_0350ozj" />
+    <bpmn2:userTask id="Task_0350ozj" name="say an omelette is available on the ${omelette[&#39;menu&#39;]} menu">
+      <bpmn2:incoming>SequenceFlow_14ilbym</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0ibtn16</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0ibtn16" sourceRef="Task_0350ozj" targetRef="Task_11z9y1e" />
+    <bpmn2:userTask id="Task_11z9y1e" name="say lobster will run you ${lobster[&#39;cost&#39;]}">
+      <bpmn2:incoming>SequenceFlow_0ibtn16</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1hfx0ll</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_0udy3h2">
+      <bpmn2:incoming>SequenceFlow_1hfx0ll</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1hfx0ll" sourceRef="Task_11z9y1e" targetRef="EndEvent_0udy3h2" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="180" y="170" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0fp34ym_di" bpmnElement="SequenceFlow_0fp34ym">
+        <di:waypoint xsi:type="dc:Point" x="216" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="257" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="257" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="307" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="272" y="182" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_1prmj7b_di" bpmnElement="Task_0qtepga">
+        <dc:Bounds x="307" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_04u5uys_di" bpmnElement="SequenceFlow_04u5uys">
+        <di:waypoint xsi:type="dc:Point" x="427" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="477" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="452" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1b10xd0_di" bpmnElement="Task_02qi9x5">
+        <dc:Bounds x="477" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_14ilbym_di" bpmnElement="SequenceFlow_14ilbym">
+        <di:waypoint xsi:type="dc:Point" x="597" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="642" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="619.5" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_070l4cw_di" bpmnElement="Task_0350ozj">
+        <dc:Bounds x="642" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ibtn16_di" bpmnElement="SequenceFlow_0ibtn16">
+        <di:waypoint xsi:type="dc:Point" x="762" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="815" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="788.5" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0tgiy84_di" bpmnElement="Task_11z9y1e">
+        <dc:Bounds x="815" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0udy3h2_di" bpmnElement="EndEvent_0udy3h2">
+        <dc:Bounds x="967" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="985" y="210" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1hfx0ll_di" bpmnElement="SequenceFlow_1hfx0ll">
+        <di:waypoint xsi:type="dc:Point" x="935" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="967" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="951" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

@@ -1,0 +1,91 @@
+Amelia V3 Training Password
+
+During the training, we will use the Amelia Training Instance: 
+https://ipsoft-amelia-trainingus-v3.ipsoft.com/Amelia/login
+Login: Email Address
+Password: RRa6Lqs2
+
+________________________________________________________________________________
+
+Amelia V3 Enablement Training – Day 1
+Agenda:
+•            Learning Objectives
+•            Who is Amelia V3?
+•            Use Case Selection
+•            Logging into Amelia V3
+•            Amelia Trainer: Intents
+•            Process Memory: Business Process Networks (BPNs)
+•            Say and Ask Tasks
+•            Service Prefix - response:
+•            Putting It Together: Connecting Intents and BPNs
+•            Additional BPN Functionality and Task Types
+  
+Logistics:
+In-Person Participants: 
+•	Training Location: 17 State Street, 10th Floor Conference Room, New York, NY 10004 
+•	Upon arrival, check in with security in the front lobby, and they will direct you to the 10th Floor.
+•	For those participating at the IPsoft office, guest Wi-Fi access, breakfast, and lunch (12:30 PM ET) will be provided. 
+•	Please bring a laptop – PC or Mac are fine. 
+For All Participants: 
+•	Use the Chrome browser during the training for all administrative work. Please ensure that you have Chrome installed on your computer prior to the training.
+•	We will be working in the Amelia V3 training instance: https://ipsoft-amelia-trainingus-v3.ipsoft.com. Login information will be provided by the day of the training. 
+•	Training materials will be attached on the day of the training.
+Recommendation:
+During the training, we may use WebEx to share our work. If you have never used WebEx before, you can test WebEx meeting here - https://www.webex.com/test-meeting.html. 
+You may need to install a WebEx extension in order to log in and share successfully. Please do this prior to arriving as there may be security restrictions that limit your ability to do so on the day of the training.
+If you have any questions in advance, feel free to email me.
+Looking forward to working with you,
+Brian Kuchta
+Senior Amelia Trainer
+
+Amelia V3 Enablement - Day One 
+Monday, September 10, 2018 
+10:00 am  |  Eastern Daylight Time (New York, GMT-04:00)  |  7 hrs 
+Meeting number (access code): 799 607 599 
+Meeting password: AmeliaV3
+
+Join from a video system or application
+https://ipsoft.webex.com/ipsoft/j.php?MTID=m68fab372899f4e5293475badac8a01cb
+Dial 799607599@ipsoft.webex.com
+
+You can also dial 173.243.2.68 and enter your meeting number.
+ 
+Join by phone
+877-309-2643 US Toll Free
+404-397-1508 US Toll
+Global call-in numbers  |  Toll-free calling restrictions
+
+TRAINING
+
+Insurance Sales/Claims Agent - ROLE
+• Auto Insurance Quote - SKILL
+
+ Answer the following: 
+ 1. What is the name of the intent that will trigger this process into action? 
+	- Auto Quote
+ 2. What are some example sentences an end user might say to trigger this intent? 
+	- I just bought a new car
+	- I need insurance for my car
+	- Can I get an Auto Quote
+	- My daughter just got her license 
+ 3. What are at least two questions Amelia will need to ask in order to complete this process? 
+	These should NOT be yes/no questions, which are typically directional and not stored as entities/variables.
+	- Whats the Make and Model of your car?
+	- Whats the year of manufacture of your car?
+	- What is the zip code of your residence?
+
+
+________________________________________________________________________________
+
+DAY 2
+
+Cheat sheet
+response:matches(‘(?i)’)
+
+Connecting Intents to BPNs
+Amelia Trainer -> Intents 
+1. Click on intent name/pencil 
+2. For “When the intent is identified…”, choose Execute Process 
+3. For “Execute the process…”, choose the appropriate BPN
+4. Save
+

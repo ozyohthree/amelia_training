@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:process id="test-auto-complete" name="transientVariableServiceAddGetVar" isExecutable="false">
+    <bpmn:extensionElements>
+      <prop:property name="approval_status" value="APPROVED"/>
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1cp3n26</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1cp3n26" sourceRef="StartEvent_1" targetRef="Task_1i1kgit"/>
+    <bpmn:scriptTask id="Task_1i1kgit" name="set variable in transient scopt" scriptFormat="groovy">
+      <bpmn:extensionElements>
+        <prop:property name="included_scripts" value=""/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1cp3n26</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ozb33n</bpmn:outgoing>
+      <bpmn:script><![CDATA[transientVariableService.addVariable('test', 'Brian')]]></bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0ozb33n" sourceRef="Task_1i1kgit" targetRef="Task_0vbq34d"/>
+    <bpmn:userTask id="Task_0vbq34d" name="say okay">
+      <bpmn:incoming>SequenceFlow_0ozb33n</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1sjs9gx</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1sjs9gx" sourceRef="Task_0vbq34d" targetRef="Task_01vy49e"/>
+    <bpmn:scriptTask id="Task_01vy49e" name="gets transient variable, converts to execution scope" scriptFormat="groovy">
+      <bpmn:extensionElements>
+        <prop:property name="included_scripts" value=""/>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1sjs9gx</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1ouykdp</bpmn:outgoing>
+      <bpmn:script><![CDATA[def testA = transientVariableService.getVariable('test')
+
+execution.setVariable('testA', testA)]]></bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1ouykdp" sourceRef="Task_01vy49e" targetRef="Task_0sx8m3e"/>
+    <bpmn:userTask id="Task_0sx8m3e" name="say ${testA}">
+      <bpmn:incoming>SequenceFlow_1ouykdp</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0d1umzj</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_0rt8vt7">
+      <bpmn:incoming>SequenceFlow_0d1umzj</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0d1umzj" sourceRef="Task_0sx8m3e" targetRef="EndEvent_0rt8vt7"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="test-auto-complete">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="173" y="102" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1cp3n26_di" bpmnElement="SequenceFlow_1cp3n26">
+        <di:waypoint xsi:type="dc:Point" x="209" y="120"/>
+        <di:waypoint xsi:type="dc:Point" x="332" y="120"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="270.5" y="99" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_1lnnh4u_di" bpmnElement="Task_1i1kgit">
+        <dc:Bounds x="332" y="80" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ozb33n_di" bpmnElement="SequenceFlow_0ozb33n">
+        <di:waypoint xsi:type="dc:Point" x="452" y="120"/>
+        <di:waypoint xsi:type="dc:Point" x="527" y="120"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="489.5" y="99" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0u6by0m_di" bpmnElement="Task_0vbq34d">
+        <dc:Bounds x="527" y="80" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1sjs9gx_di" bpmnElement="SequenceFlow_1sjs9gx">
+        <di:waypoint xsi:type="dc:Point" x="647" y="120"/>
+        <di:waypoint xsi:type="dc:Point" x="710" y="120"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="678.5" y="99" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_1kedcme_di" bpmnElement="Task_01vy49e">
+        <dc:Bounds x="710" y="80" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ouykdp_di" bpmnElement="SequenceFlow_1ouykdp">
+        <di:waypoint xsi:type="dc:Point" x="830" y="120"/>
+        <di:waypoint xsi:type="dc:Point" x="892" y="120"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="861" y="99" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1gr245s_di" bpmnElement="Task_0sx8m3e">
+        <dc:Bounds x="892" y="80" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0rt8vt7_di" bpmnElement="EndEvent_0rt8vt7">
+        <dc:Bounds x="1074" y="102" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1092" y="142" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0d1umzj_di" bpmnElement="SequenceFlow_0d1umzj">
+        <di:waypoint xsi:type="dc:Point" x="1012" y="120"/>
+        <di:waypoint xsi:type="dc:Point" x="1074" y="120"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1043" y="99" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

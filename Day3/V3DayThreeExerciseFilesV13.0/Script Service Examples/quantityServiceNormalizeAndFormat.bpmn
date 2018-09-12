@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="quantityServiceNormalizeAndFormat" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_1cmh0yv</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1cmh0yv" sourceRef="StartEvent_1" targetRef="Task_1rwi74u" />
+    <bpmn2:scriptTask id="Task_1rwi74u" name="normalizes text to object and formats" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1cmh0yv</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0pf3tla</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[def formattedValue =quantityService.normalizeAndFormat("12/01/2012", DatumType.DATE, Formatters.DATE_IN_WORDS)
+
+execution.setVariable('dateInWords', formattedValue)]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0pf3tla" sourceRef="Task_1rwi74u" targetRef="Task_0w1963d" />
+    <bpmn2:userTask id="Task_0w1963d" name="say ${dateInWords}">
+      <bpmn2:incoming>SequenceFlow_0pf3tla</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1guamzx</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_0w2tnpy">
+      <bpmn2:incoming>SequenceFlow_1guamzx</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1guamzx" sourceRef="Task_0w1963d" targetRef="EndEvent_0w2tnpy" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="180" y="170" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1cmh0yv_di" bpmnElement="SequenceFlow_1cmh0yv">
+        <di:waypoint xsi:type="dc:Point" x="216" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="287" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="206.5" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_10ld1az_di" bpmnElement="Task_1rwi74u">
+        <dc:Bounds x="287" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0pf3tla_di" bpmnElement="SequenceFlow_0pf3tla">
+        <di:waypoint xsi:type="dc:Point" x="407" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="441" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="379" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_009pw9h_di" bpmnElement="Task_0w1963d">
+        <dc:Bounds x="441" y="148" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0w2tnpy_di" bpmnElement="EndEvent_0w2tnpy">
+        <dc:Bounds x="628" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="601" y="210" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1guamzx_di" bpmnElement="SequenceFlow_1guamzx">
+        <di:waypoint xsi:type="dc:Point" x="561" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="628" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="549.5" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

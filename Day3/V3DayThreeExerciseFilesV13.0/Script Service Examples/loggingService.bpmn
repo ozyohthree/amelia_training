@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="loggingService" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_1hfjaiy</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1hfjaiy" sourceRef="StartEvent_1" targetRef="Task_16tjhoj"/>
+    <bpmn2:userTask id="Task_16tjhoj" name="say hi there">
+      <bpmn2:incoming>SequenceFlow_1hfjaiy</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_15y8ywv</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_15y8ywv" sourceRef="Task_16tjhoj" targetRef="Task_0lu4z4j"/>
+    <bpmn2:userTask id="Task_0lu4z4j" name="say i am going to log some info">
+      <bpmn2:incoming>SequenceFlow_15y8ywv</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0r5ztf7</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0r5ztf7" sourceRef="Task_0lu4z4j" targetRef="Task_0psob9a"/>
+    <bpmn2:scriptTask id="Task_0psob9a" name="send info to log" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value=""/>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_0r5ztf7</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_079brf6</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[log.info("This section shows in Diagnosis or the engine log.")
+
+log.debug("Likely telling you there is a problem...")
+
+log.warn("and use this when there is something going badly.")
+
+log.error("Or when if it falls apart.")
+
+log.info("But that rarely happens, if ever.")]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_079brf6" sourceRef="Task_0psob9a" targetRef="Task_14xp8zm"/>
+    <bpmn2:userTask id="Task_14xp8zm" name="say check your log">
+      <bpmn2:incoming>SequenceFlow_079brf6</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0q1wtnv</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_0frxhhb">
+      <bpmn2:incoming>SequenceFlow_0q1wtnv</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_0q1wtnv" sourceRef="Task_14xp8zm" targetRef="EndEvent_0frxhhb"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="180" y="170" width="36" height="36"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1hfjaiy_di" bpmnElement="SequenceFlow_1hfjaiy">
+        <di:waypoint xsi:type="dc:Point" x="216" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="264" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="240" y="167" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1uoru4d_di" bpmnElement="Task_16tjhoj">
+        <dc:Bounds x="264" y="148" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_15y8ywv_di" bpmnElement="SequenceFlow_15y8ywv">
+        <di:waypoint xsi:type="dc:Point" x="384" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="444" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="414" y="167" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0xfhh7o_di" bpmnElement="Task_0lu4z4j">
+        <dc:Bounds x="444" y="148" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0r5ztf7_di" bpmnElement="SequenceFlow_0r5ztf7">
+        <di:waypoint xsi:type="dc:Point" x="564" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="628" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="596" y="167" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_0htysp6_di" bpmnElement="Task_0psob9a">
+        <dc:Bounds x="628" y="148" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_079brf6_di" bpmnElement="SequenceFlow_079brf6">
+        <di:waypoint xsi:type="dc:Point" x="748" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="811" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="779.5" y="167" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0u9e5v7_di" bpmnElement="Task_14xp8zm">
+        <dc:Bounds x="811" y="148" width="120" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0frxhhb_di" bpmnElement="EndEvent_0frxhhb">
+        <dc:Bounds x="987" y="170" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1005" y="210" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0q1wtnv_di" bpmnElement="SequenceFlow_0q1wtnv">
+        <di:waypoint xsi:type="dc:Point" x="931" y="188"/>
+        <di:waypoint xsi:type="dc:Point" x="987" y="188"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="959" y="167" width="0" height="12"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
