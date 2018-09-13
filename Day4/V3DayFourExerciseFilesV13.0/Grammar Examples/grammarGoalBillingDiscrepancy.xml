@@ -1,0 +1,21 @@
+<language-units>
+  <lu type="GOAL" name="hotel billing discrepancy" principle="false" askType="DEFAULT">
+    <grammar><![CDATA[			[_billDiscrepancy]
+				(i have a billing discrepancy)
+				(i need to discuss *an ISSUE with *a billing SITUATION)
+				(billing issue)
+			
+			ISSUE
+				(problem)
+				(refund)
+				(credit)
+			
+			SITUATION
+				(discrepancy)
+				(issue)
+				(over charge)
+			;
+]]></grammar>
+    <customAskSentences/>
+  </lu>
+</language-units>

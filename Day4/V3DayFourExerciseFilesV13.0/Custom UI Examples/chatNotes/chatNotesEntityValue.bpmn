@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="chatNotesEntityValue" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_1prr5cu</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1prr5cu" sourceRef="StartEvent_1" targetRef="Task_0n8v12w" />
+    <bpmn2:userTask id="Task_0n8v12w" name="ask for the slot cost">
+      <bpmn2:extensionElements>
+        <prop:property name="ask_slot_question_id" value="17d9f774-3d51-40b1-9616-edbf6f56fc10" />
+        <prop:property name="ask_first_pass_behavior" value="AlwaysAsk" />
+        <prop:property name="ask_subsequent_pass_behavior" value="AlwaysAsk" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1prr5cu</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0d3cbwh</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:scriptTask id="Task_04cftfy" name="creates chat notes" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_143b7q0</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_057kwdj</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[import groovy.json.JsonOutput
+ 
+def cost = contextService.latestSlot('cost').value()
+ 
+def payload = [
+    action       : 'addChatNotesIntegration',
+    componentType: 'ChatNote',
+    payload      : [
+        [
+        component    : 'ChatNote',
+        header       : 'Welcome to Amelia',
+        title        : 'Amelia Shows Variables',
+        actionProcess: [
+			actionName: 'buttonSubProcess',
+			//actionArguments execution scope var: value pair
+			actionArguments: [
+				username: "Brian"],
+			actionMessage: 'You have clicked edit'
+			],
+        subcomponents: [
+ 
+            [
+            subcomponent: 'Markup',
+            markupType  : 'Text',
+            label       : 'Cost Amount',
+            value       : cost + ' is the amount you selected'
+            ],
+        ]
+ 
+        ]
+    ]
+]
+ 
+def jsonString = JsonOutput.toJson(payload)
+
+execution.setVariable('jsonString',jsonString)]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:userTask id="Task_14dg3j7" name="say that&#39;s it">
+      <bpmn2:incoming>SequenceFlow_17ixyxm</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1v1v7kd</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_0tvyub6">
+      <bpmn2:incoming>SequenceFlow_1v1v7kd</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1v1v7kd" sourceRef="Task_14dg3j7" targetRef="EndEvent_0tvyub6" />
+    <bpmn2:sequenceFlow id="SequenceFlow_057kwdj" sourceRef="Task_04cftfy" targetRef="Task_1t8kxmt" />
+    <bpmn2:userTask id="Task_1t8kxmt" name="send the integration message jsonString">
+      <bpmn2:incoming>SequenceFlow_057kwdj</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_17ixyxm</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_17ixyxm" sourceRef="Task_1t8kxmt" targetRef="Task_14dg3j7" />
+    <bpmn2:sequenceFlow id="SequenceFlow_0d3cbwh" sourceRef="Task_0n8v12w" targetRef="Task_09d9ucz" />
+    <bpmn2:userTask id="Task_09d9ucz" name="say ${ctx:latestSlot(&#39;cost&#39;).value()}">
+      <bpmn2:incoming>SequenceFlow_0d3cbwh</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_143b7q0</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_143b7q0" sourceRef="Task_09d9ucz" targetRef="Task_04cftfy" />
+    <bpmn2:textAnnotation id="TextAnnotation_1i1pz7h">    <bpmn2:text>You need to create an entity called cost of Integer datum type for this to work</bpmn2:text>
+</bpmn2:textAnnotation>
+    <bpmn2:association id="Association_0gtz2s8" sourceRef="Task_0n8v12w" targetRef="TextAnnotation_1i1pz7h" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="239" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="212" y="206" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1prr5cu_di" bpmnElement="SequenceFlow_1prr5cu">
+        <di:waypoint xsi:type="dc:Point" x="275" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="335" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="260" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1ipvy6u_di" bpmnElement="Task_0n8v12w">
+        <dc:Bounds x="335" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ScriptTask_1c4xwih_di" bpmnElement="Task_04cftfy">
+        <dc:Bounds x="656" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_11hizpt_di" bpmnElement="Task_14dg3j7">
+        <dc:Bounds x="955" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0tvyub6_di" bpmnElement="EndEvent_0tvyub6">
+        <dc:Bounds x="1109" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1082" y="210" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1v1v7kd_di" bpmnElement="SequenceFlow_1v1v7kd">
+        <di:waypoint xsi:type="dc:Point" x="1075" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="1109" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1047" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_057kwdj_di" bpmnElement="SequenceFlow_057kwdj">
+        <di:waypoint xsi:type="dc:Point" x="776" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="802" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="744" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1hvkbh2_di" bpmnElement="Task_1t8kxmt">
+        <dc:Bounds x="802" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_17ixyxm_di" bpmnElement="SequenceFlow_17ixyxm">
+        <di:waypoint xsi:type="dc:Point" x="922" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="955" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="893.5" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0d3cbwh_di" bpmnElement="SequenceFlow_0d3cbwh">
+        <di:waypoint xsi:type="dc:Point" x="455" y="187" />
+        <di:waypoint xsi:type="dc:Point" x="497" y="186" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="431" y="165.5" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0mizedv_di" bpmnElement="Task_09d9ucz">
+        <dc:Bounds x="497" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_143b7q0_di" bpmnElement="SequenceFlow_143b7q0">
+        <di:waypoint xsi:type="dc:Point" x="617" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="656" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="591.5" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1i1pz7h_di" bpmnElement="TextAnnotation_1i1pz7h">
+        <dc:Bounds x="283" y="7" width="113" height="91" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0gtz2s8_di" bpmnElement="Association_0gtz2s8">
+        <di:waypoint xsi:type="dc:Point" x="379" y="148" />
+        <di:waypoint xsi:type="dc:Point" x="358" y="98" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

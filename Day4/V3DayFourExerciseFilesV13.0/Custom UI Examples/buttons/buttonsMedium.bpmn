@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="buttonsMedium" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_03hq73y</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_03hq73y" sourceRef="StartEvent_1" targetRef="Task_1n2xwbt" />
+    <bpmn2:userTask id="Task_1n2xwbt" name="say it&#39;s my pleasure to help you with room service">
+      <bpmn2:incoming>SequenceFlow_03hq73y</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_039x0k3</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_039x0k3" sourceRef="Task_1n2xwbt" targetRef="Task_1hqjtnu" />
+    <bpmn2:scriptTask id="Task_0cusb6s" name="sets up med buttons with images" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_0w23b6m</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0ykr28w</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[def baseOne = execution.getVariable('baseOne').toString()
+def baseTwo = execution.getVariable('baseTwo').toString()
+def baseThree = execution.getVariable('baseThree').toString()
+
+def formInputData = formInputDataBuilder.create()
+                .name("MenuSelectionForm")
+                .nameForDisplay("Menu Selection")
+                .formType("sample")
+                .instructions("Please choose one of the following:")
+                .staticSelectionUtterance("")
+                .allowedUserInputs("form_only")
+                .addField()
+                    .name("menuSelectionField")
+                    .fieldType("singleSelectionImage")
+                    .postfixedSelectionUtterance("", "")
+                    .addOption()
+                        .name("Breakfast")
+                        .value("bfast")
+                        .imageBase64(baseOne)
+                        .backToField()
+                    .addOption()
+                        .name("Lunch")
+                        .value("lunch")
+                        .imageBase64(baseTwo)
+                        .backToField()
+                    .addOption()
+                        .name("Dinner")
+                        .value("din")
+                        .imageBase64(baseThree)
+                        .backToField()
+                    .backToForm()
+                .build();
+ 
+execution.setVariable('formInputData', formInputData.toString())]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0ykr28w" sourceRef="Task_0cusb6s" targetRef="Task_0nxf0rz" />
+    <bpmn2:userTask id="Task_0nxf0rz" name="ask &#34;Which menu would you like to order from?&#34;">
+      <bpmn2:extensionElements>
+        <prop:property name="form_input_data_variable" value="formInputData" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_0ykr28w</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0o9dea4</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0o9dea4" sourceRef="Task_0nxf0rz" targetRef="Task_0rkn1pu" />
+    <bpmn2:userTask id="Task_0d51cm6" name="say great choice. I love the ${menu} menu">
+      <bpmn2:incoming>SequenceFlow_1ogb92q</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1qxutuu</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_0qitese">
+      <bpmn2:incoming>SequenceFlow_1qxutuu</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1qxutuu" sourceRef="Task_0d51cm6" targetRef="EndEvent_0qitese" />
+    <bpmn2:sequenceFlow id="SequenceFlow_0w23b6m" sourceRef="Task_1hqjtnu" targetRef="Task_0cusb6s" />
+    <bpmn2:scriptTask id="Task_1hqjtnu" name="get image Urls" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_039x0k3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0w23b6m</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[
+// There's a much cleaner way to do this but the purpose is to show all steps.
+
+def bucket = cmService.getBucketResources('roomservice')
+
+for(i = 0; i < bucket.size(); i++){
+    if(bucket[i].objectName().matches('breakfastMenu.jpg')){
+        def imageId = bucket[i].objectId()
+        execution.setVariable('imageIdOne', imageId)
+    }
+}
+
+for(i = 0; i < bucket.size(); i++){
+    if(bucket[i].objectName().matches('lunchMenu.jpg')){
+        def imageId = bucket[i].objectId()
+        execution.setVariable('imageIdTwo', imageId)
+    }
+}
+
+for(i = 0; i < bucket.size(); i++){
+    if(bucket[i].objectName().matches('dinnerMenu.jpg')){
+        def imageId = bucket[i].objectId()
+        execution.setVariable('imageIdThree', imageId)
+    }
+}
+
+
+def imageIdOne = execution.getVariable('imageIdOne')
+def imageIdTwo = execution.getVariable('imageIdTwo')
+def imageIdThree = execution.getVariable('imageIdThree')
+
+
+imageIdOne = imageIdOne.toString()
+imageIdTwo = imageIdTwo.toString()
+imageIdThree = imageIdThree.toString()
+
+def baseOne = cmService.getResourceUrl(imageIdOne)
+def baseTwo = cmService.getResourceUrl(imageIdTwo)
+def baseThree = cmService.getResourceUrl(imageIdThree)
+
+
+execution.setVariable('baseOne', baseOne)
+execution.setVariable('baseTwo', baseTwo)
+execution.setVariable('baseThree', baseThree)]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1ogb92q" sourceRef="Task_0rkn1pu" targetRef="Task_0d51cm6" />
+    <bpmn2:userTask id="Task_0rkn1pu" name="set the variable menu to ${response}">
+      <bpmn2:incoming>SequenceFlow_0o9dea4</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1ogb92q</bpmn2:outgoing>
+    </bpmn2:userTask>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="180" y="170" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_03hq73y_di" bpmnElement="SequenceFlow_03hq73y">
+        <di:waypoint xsi:type="dc:Point" x="216" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="273" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="199.5" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1dtldt0_di" bpmnElement="Task_1n2xwbt">
+        <dc:Bounds x="273" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_039x0k3_di" bpmnElement="SequenceFlow_039x0k3">
+        <di:waypoint xsi:type="dc:Point" x="393" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="432" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="367.5" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_0266adg_di" bpmnElement="Task_0cusb6s">
+        <dc:Bounds x="589" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ykr28w_di" bpmnElement="SequenceFlow_0ykr28w">
+        <di:waypoint xsi:type="dc:Point" x="709" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="739" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="679" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_028yipz_di" bpmnElement="Task_0nxf0rz">
+        <dc:Bounds x="739" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0o9dea4_di" bpmnElement="SequenceFlow_0o9dea4">
+        <di:waypoint xsi:type="dc:Point" x="859" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="875" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="822" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1ivzvdj_di" bpmnElement="Task_0d51cm6">
+        <dc:Bounds x="1029" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0qitese_di" bpmnElement="EndEvent_0qitese">
+        <dc:Bounds x="1213" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1186" y="210" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1qxutuu_di" bpmnElement="SequenceFlow_1qxutuu">
+        <di:waypoint xsi:type="dc:Point" x="1149" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="1213" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1136" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0w23b6m_di" bpmnElement="SequenceFlow_0w23b6m">
+        <di:waypoint xsi:type="dc:Point" x="552" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="589" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="525.5" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_0w2lmk2_di" bpmnElement="Task_1hqjtnu">
+        <dc:Bounds x="432" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ogb92q_di" bpmnElement="SequenceFlow_1ogb92q">
+        <di:waypoint xsi:type="dc:Point" x="995" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="1029" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1012" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0yuyucn_di" bpmnElement="Task_0rkn1pu">
+        <dc:Bounds x="875" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

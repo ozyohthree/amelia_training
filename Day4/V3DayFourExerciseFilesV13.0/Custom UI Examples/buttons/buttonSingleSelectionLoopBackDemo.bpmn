@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="buttonSingleSelectionLoopBackDemo" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_1spog3v</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1spog3v" sourceRef="StartEvent_1" targetRef="Task_0ybjinw" />
+    <bpmn2:userTask id="Task_0ybjinw" name="say I am pleased to provide you with three options to select from">
+      <bpmn2:incoming>SequenceFlow_1spog3v</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0qrqwew</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0qrqwew" sourceRef="Task_0ybjinw" targetRef="Task_1f8kw12" />
+    <bpmn2:scriptTask id="Task_1f8kw12" name="single selection button" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_0qrqwew</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1o2l47o</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[def fieldBuilder = formInputDataBuilder.create()
+      .name("singleChoiceButton")
+      .nameForDisplay("Single Choice Button")
+      .formType("sampleForm")
+      .staticSelectionUtterance("")
+      .allowedUserInputs("both")
+      .addField()
+        .name("someChoice")
+        .fieldType("singleSelection")
+        .postfixedSelectionUtterance("", "")
+				.addOption()
+                  .name("Red")
+                  .value("Red")
+                  .backToField()
+				.addOption()
+                  .name("Blue")
+                  .value("Blue")
+                  .backToField()
+				.addOption()
+                  .name("Green")
+                  .value("Green")
+                  .backToField()
+			.backToForm()
+          .build()
+  
+  
+execution.setVariable('singleChoiceButton', fieldBuilder.toString())
+]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1o2l47o" sourceRef="Task_1f8kw12" targetRef="Task_0k4nrqz" />
+    <bpmn2:userTask id="Task_0k4nrqz" name="ask &#34;Which of these colors would you like?&#34;" default="SequenceFlow_1hjb4xz">
+      <bpmn2:extensionElements>
+        <prop:property name="ask_first_pass_behavior" value="AlwaysAsk" />
+        <prop:property name="ask_subsequent_pass_behavior" value="AlwaysAsk" />
+        <prop:property name="form_input_data_variable" value="singleChoiceButton" />
+        <prop:property name="user_task_hint_text" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1o2l47o</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_124ejoq</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0u44869</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_07yxyki</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_1qmhs5w</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_1hjb4xz</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0u44869" name="red" sourceRef="Task_0k4nrqz" targetRef="Task_1e7dhb8">
+      <bpmn2:extensionElements>
+        <prop:property name="expression" value="response:value().matches(&#39;(?i)red&#39;)" />
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_07yxyki" name="blue" sourceRef="Task_0k4nrqz" targetRef="Task_01jfw20">
+      <bpmn2:extensionElements>
+        <prop:property name="expression" value="response:value().matches(&#39;(?i)blue&#39;)" />
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_1qmhs5w" name="green" sourceRef="Task_0k4nrqz" targetRef="Task_1n8c5p1">
+      <bpmn2:extensionElements>
+        <prop:property name="expression" value="response:value().matches(&#39;(?i)green&#39;)" />
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:userTask id="Task_1e7dhb8" name="say got red">
+      <bpmn2:incoming>SequenceFlow_0u44869</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0rr4dbw</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:userTask id="Task_01jfw20" name="say got blue">
+      <bpmn2:incoming>SequenceFlow_07yxyki</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_08g9dwo</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:userTask id="Task_1n8c5p1" name="say got green">
+      <bpmn2:incoming>SequenceFlow_1qmhs5w</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0s5j0pp</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_1ht9cql">
+      <bpmn2:incoming>SequenceFlow_0rr4dbw</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_0s5j0pp</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_08g9dwo</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_0rr4dbw" sourceRef="Task_1e7dhb8" targetRef="EndEvent_1ht9cql" />
+    <bpmn2:sequenceFlow id="SequenceFlow_0s5j0pp" sourceRef="Task_1n8c5p1" targetRef="EndEvent_1ht9cql" />
+    <bpmn2:sequenceFlow id="SequenceFlow_08g9dwo" sourceRef="Task_01jfw20" targetRef="EndEvent_1ht9cql" />
+    <bpmn2:sequenceFlow id="SequenceFlow_1hjb4xz" sourceRef="Task_0k4nrqz" targetRef="Task_049coc8" />
+    <bpmn2:userTask id="Task_049coc8" name="say please select red, blue, or green">
+      <bpmn2:incoming>SequenceFlow_1hjb4xz</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_124ejoq</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_124ejoq" sourceRef="Task_049coc8" targetRef="Task_0k4nrqz" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="176" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="149" y="206" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1spog3v_di" bpmnElement="SequenceFlow_1spog3v">
+        <di:waypoint xsi:type="dc:Point" x="212" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="276" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="199" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0dpery3_di" bpmnElement="Task_0ybjinw">
+        <dc:Bounds x="276" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0qrqwew_di" bpmnElement="SequenceFlow_0qrqwew">
+        <di:waypoint xsi:type="dc:Point" x="396" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="438" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="372" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_159zize_di" bpmnElement="Task_1f8kw12">
+        <dc:Bounds x="438" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1o2l47o_di" bpmnElement="SequenceFlow_1o2l47o">
+        <di:waypoint xsi:type="dc:Point" x="558" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="593" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="531" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1m86wn8_di" bpmnElement="Task_0k4nrqz">
+        <dc:Bounds x="593" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0u44869_di" bpmnElement="SequenceFlow_0u44869">
+        <di:waypoint xsi:type="dc:Point" x="713" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="753" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="753" y="33" />
+        <di:waypoint xsi:type="dc:Point" x="875" y="33" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="803.8214285714286" y="-4.5" width="16" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_07yxyki_di" bpmnElement="SequenceFlow_07yxyki">
+        <di:waypoint xsi:type="dc:Point" x="713" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="875" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="784.0328947368421" y="167" width="21" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1qmhs5w_di" bpmnElement="SequenceFlow_1qmhs5w">
+        <di:waypoint xsi:type="dc:Point" x="713" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="753" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="753" y="359" />
+        <di:waypoint xsi:type="dc:Point" x="875" y="359" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="806.5803571428571" y="318" width="29" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1jcnc3t_di" bpmnElement="Task_1e7dhb8">
+        <dc:Bounds x="875" y="-7" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_11uj9xw_di" bpmnElement="Task_01jfw20">
+        <dc:Bounds x="875" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_13xh64e_di" bpmnElement="Task_1n8c5p1">
+        <dc:Bounds x="875" y="319" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1ht9cql_di" bpmnElement="EndEvent_1ht9cql">
+        <dc:Bounds x="1069" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1087" y="210" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0rr4dbw_di" bpmnElement="SequenceFlow_0rr4dbw">
+        <di:waypoint xsi:type="dc:Point" x="995" y="33" />
+        <di:waypoint xsi:type="dc:Point" x="1032" y="33" />
+        <di:waypoint xsi:type="dc:Point" x="1032" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="1069" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1047" y="104.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0s5j0pp_di" bpmnElement="SequenceFlow_0s5j0pp">
+        <di:waypoint xsi:type="dc:Point" x="995" y="359" />
+        <di:waypoint xsi:type="dc:Point" x="1032" y="359" />
+        <di:waypoint xsi:type="dc:Point" x="1032" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="1069" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1047" y="267.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_08g9dwo_di" bpmnElement="SequenceFlow_08g9dwo">
+        <di:waypoint xsi:type="dc:Point" x="995" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="1069" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1032" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1hjb4xz_di" bpmnElement="SequenceFlow_1hjb4xz">
+        <di:waypoint xsi:type="dc:Point" x="653" y="148" />
+        <di:waypoint xsi:type="dc:Point" x="653" y="22" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="668" y="79" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_09ol9r4_di" bpmnElement="Task_049coc8">
+        <dc:Bounds x="603" y="-58" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_124ejoq_di" bpmnElement="SequenceFlow_124ejoq">
+        <di:waypoint xsi:type="dc:Point" x="685" y="22" />
+        <di:waypoint xsi:type="dc:Point" x="685" y="148" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="700" y="79" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="buttonsMultipleSelectionMutlipleChoice" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_1spog3v</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1spog3v" sourceRef="StartEvent_1" targetRef="Task_0ybjinw" />
+    <bpmn2:userTask id="Task_0ybjinw" name="say we have many delicious desserts">
+      <bpmn2:incoming>SequenceFlow_1spog3v</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0qrqwew</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0qrqwew" sourceRef="Task_0ybjinw" targetRef="Task_1bjlioo" />
+    <bpmn2:userTask id="Task_0fa4q3q" name="ask &#34;Which desserts would you like?&#34;">
+      <bpmn2:extensionElements>
+        <prop:property name="user_task_hint_text" value="" />
+        <prop:property name="form_input_data_variable" value="multiChoiceButton" />
+        <prop:property name="ask_first_pass_behavior" value="AlwaysAsk" />
+        <prop:property name="ask_subsequent_pass_behavior" value="AlwaysAsk" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_008owcx</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_09jk4rh</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_0a3cjpl">
+      <bpmn2:incoming>SequenceFlow_1r5iu28</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:scriptTask id="Task_1f8kw12" name="Multiple Selection Multiple Choice Buttons" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_0lp4sk0</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_008owcx</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[def multiChoiceButton = formInputDataBuilder.create()
+          .name("flavorSelection")
+          .nameForDisplay("Dessert Form")
+          .formType("sampleForm")
+          .staticSelectionUtterance("")
+          .allowedUserInputs("form_only")
+          .addField()
+              .name("dessertSelectionField")
+              .fieldType("multipleSelection")
+              .postfixedSelectionUtterance("", "")
+              .addOption()
+                  .name("Chocolate Pie")
+                  .value("chocolate pie")
+                  .backToField()
+              .addOption()
+                  .name("Vanilla Bean Cake")
+                  .value("vanilla cake")
+                  .backToField()
+              .addOption()
+                  .name("Strawberry Shortcake")
+                  .value("strawberry")
+                  .selected(true) // Selected by default
+                  .backToField()
+              .backToForm()
+          .build();
+
+execution.setVariable("multiChoiceButton", multiChoiceButton.toString())]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_008owcx" sourceRef="Task_1f8kw12" targetRef="Task_0fa4q3q" />
+    <bpmn2:sequenceFlow id="SequenceFlow_09jk4rh" sourceRef="Task_0fa4q3q" targetRef="Task_1pgxp00" />
+    <bpmn2:userTask id="Task_1pgxp00" name="say ${response} are delicious choices">
+      <bpmn2:incoming>SequenceFlow_09jk4rh</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1r5iu28</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1r5iu28" sourceRef="Task_1pgxp00" targetRef="EndEvent_0a3cjpl" />
+    <bpmn2:sequenceFlow id="SequenceFlow_0lp4sk0" sourceRef="Task_1bjlioo" targetRef="Task_1f8kw12" />
+    <bpmn2:userTask id="Task_1bjlioo" name="say i recommend the strawberry shortcake">
+      <bpmn2:incoming>SequenceFlow_0qrqwew</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0lp4sk0</bpmn2:outgoing>
+    </bpmn2:userTask>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="185" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="158" y="206" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1spog3v_di" bpmnElement="SequenceFlow_1spog3v">
+        <di:waypoint xsi:type="dc:Point" x="221" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="280" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="205.5" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0dpery3_di" bpmnElement="Task_0ybjinw">
+        <dc:Bounds x="280" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0qrqwew_di" bpmnElement="SequenceFlow_0qrqwew">
+        <di:waypoint xsi:type="dc:Point" x="400" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="429" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="369.5" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0oepnil_di" bpmnElement="Task_0fa4q3q">
+        <dc:Bounds x="735" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0a3cjpl_di" bpmnElement="EndEvent_0a3cjpl">
+        <dc:Bounds x="1055" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1028" y="210" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ScriptTask_159zize_di" bpmnElement="Task_1f8kw12">
+        <dc:Bounds x="577" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_008owcx_di" bpmnElement="SequenceFlow_008owcx">
+        <di:waypoint xsi:type="dc:Point" x="697" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="735" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="671" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_09jk4rh_di" bpmnElement="SequenceFlow_09jk4rh">
+        <di:waypoint xsi:type="dc:Point" x="855" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="880" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="867.5" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_01mktdv_di" bpmnElement="Task_1pgxp00">
+        <dc:Bounds x="880" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1r5iu28_di" bpmnElement="SequenceFlow_1r5iu28">
+        <di:waypoint xsi:type="dc:Point" x="1000" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="1055" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1027.5" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0lp4sk0_di" bpmnElement="SequenceFlow_0lp4sk0">
+        <di:waypoint xsi:type="dc:Point" x="549" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="577" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="563" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1thqxa7_di" bpmnElement="Task_1bjlioo">
+        <dc:Bounds x="429" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

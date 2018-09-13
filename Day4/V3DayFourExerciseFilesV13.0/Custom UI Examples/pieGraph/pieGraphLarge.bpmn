@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="pieGraphLarge" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_094smei</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_094smei" sourceRef="StartEvent_1" targetRef="Task_077v440" />
+    <bpmn2:userTask id="Task_077v440" name="say this is a large pie in chat">
+      <bpmn2:incoming>SequenceFlow_094smei</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0ug1z4w</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0ug1z4w" sourceRef="Task_077v440" targetRef="Task_0uocgas" />
+    <bpmn2:scriptTask id="Task_0uocgas" name="create large pie graph" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_0ug1z4w</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1qdat97</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[import groovy.json.JsonOutput
+def jsonString = '''
+{
+  "action": "addChatMessage",
+  "payload": {
+    "componentType": "MessageIntegration",
+    "subComponentType": "TimeSelector",
+    "subComponentProps": {
+      "hasPieChart": "true",
+      "selected": "MAY",
+      "dates": [
+        "JAN",
+        "FEB",
+        "MAR",
+        "APR",
+        "MAY",
+        "JUN"
+      ],
+      "dateStrings": {},
+      "subComponents": [
+        {
+            "graphType": "metrics",
+            "metricComponents": [
+            {
+                "graphType": "metric",
+                "title": "Entertainment",
+                "keyColor": "#3C32BC",
+                "dates": {
+                    "JAN": {
+                        "primary": "$100",
+                        "secondary": "1%"
+                    },
+                    "FEB": {
+                        "primary": "$500",
+                        "secondary": "5%"
+                    },
+                    "MAR": {
+                        "primary": "$1700",
+                        "secondary": "17%"
+                    },
+                    "APR": {
+                        "primary": "$100",
+                        "secondary": "1%"
+                    },
+                    "MAY": {
+                        "primary": "$1400",
+                        "secondary": "14%"
+                    },
+                    "JUN": {
+                        "primary": "$300",
+                        "secondary": "3%"
+                    }
+                }
+            },
+            {
+                "graphType": "metric",
+                "title": "Groceries",
+                "keyColor": "#FCB027",
+                "dates": {
+                    "JAN": {
+                        "primary": "$1000",
+                        "secondary": "10%"
+                    },
+                    "FEB": {
+                        "primary": "$800",
+                        "secondary": "8%"
+                    },
+                    "MAR": {
+                        "primary": "$2300",
+                        "secondary": "23%"
+                    },
+                    "APR": {
+                        "primary": "$300",
+                        "secondary": "3%"
+                    },
+                    "MAY": {
+                        "primary": "$400",
+                        "secondary": "44%"
+                    },
+                    "JUN": {
+                        "primary": "$500",
+                        "secondary": "5%"
+                    }
+                }
+            },
+            {
+                "graphType": "metric",
+                "title": "Mortgage",
+                "keyColor": "#5A65FB",
+                "dates": {
+                    "JAN": {
+                        "primary": "$2000",
+                        "secondary": "20%"
+                    },
+                    "FEB": {
+                        "primary": "$1500",
+                        "secondary": "15%"
+                    },
+                    "MAR": {
+                        "primary": "$2500",
+                        "secondary": "25%"
+                    },
+                    "APR": {
+                        "primary": "$400",
+                        "secondary": "4%"
+                    },
+                    "MAY": {
+                        "primary": "$1600",
+                        "secondary": "16%"
+                    },
+                    "JUN": {
+                        "primary": "$900",
+                        "secondary": "9%"
+                    }
+                }
+            }]},
+        {
+          "title": "Spending",
+          "dates": {},
+          "JAN": {
+            "dataPoints": [
+              {
+                "value": 1,
+                "color": "#3C32BC",
+                "label": "ENTERTAINMENT",
+                "subLabel": "1%"
+              },
+              {
+                "value": 10,
+                "color": "#FCB027",
+                "label": "GROCERIES",
+                "subLabel": "10%"
+              },
+              {
+                "value": 20,
+                "color": "#5A65FB",
+                "label": "MORTGAGE",
+                "subLabel": "20%"
+              }
+            ],
+            "primaryValue": "$33,444",
+            "title": "Mortgage"
+          },
+          "FEB": {
+            "dataPoints": [
+              {
+                "value": 5,
+                "color": "#3C32BC",
+                "label": "ENTERTAINMENT",
+                "subLabel": "5%"
+              },
+              {
+                "value": 8,
+                "color": "#FCB027",
+                "label": "GROCERIES",
+                "subLabel": "8%"
+              },
+              {
+                "value": 15,
+                "color": "#5A65FB",
+                "label": "MORTGAGE",
+                "subLabel": "15%"
+              }
+            ],
+            "primaryValue": "$33,444",
+            "fullCircleValue": "100",
+            "title": "Mortgage"
+          },
+          "MAR": {
+            "dataPoints": [
+              {
+                "value": 17,
+                "color": "#3C32BC",
+                "label": "ENTERTAINMENT",
+                "subLabel": "17%"
+              },
+              {
+                "value": 23,
+                "color": "#FCB027",
+                "label": "GROCERIES",
+                "subLabel": "23%"
+              },
+              {
+                "value": 25,
+                "color": "#5A65FB",
+                "label": "MORTGAGE",
+                "subLabel": "25%"
+              }
+            ],
+            "fullCircleValue": "65",
+            "primaryValue": "$33,444",
+            "title": "Mortgage"
+          },
+          "APR": {
+            "dataPoints": [
+              {
+                "value": 1,
+                "color": "#3C32BC",
+                "label": "ENTERTAINMENT",
+                "subLabel": "1%"
+              },
+              {
+                "value": 3,
+                "color": "#FCB027",
+                "label": "GROCERIES",
+                "subLabel": "3%"
+              },
+              {
+                "value": 4,
+                "color": "#5A65FB",
+                "label": "MORTGAGE",
+                "subLabel": "4%"
+              }
+            ],
+            "fullCircleValue": "10",
+            "primaryValue": "$33,444",
+            "title": "Mortgage"
+          },
+          "MAY": {
+            "dataPoints": [
+              {
+                "value": 14,
+                "color": "#3C32BC",
+                "label": "ENTERTAINMENT",
+                "subLabel": "14%"
+              },
+              {
+                "value": 4,
+                "color": "#FCB027",
+                "label": "GROCERIES",
+                "subLabel": "4%"
+              },
+              {
+                "value": 16,
+                "color": "#5A65FB",
+                "label": "MORTGAGE",
+                "subLabel": "16%"
+              }
+            ],
+            "primaryValue": "$33,444",
+            "fullCircleValue": "50",
+            "title": "Mortgage"
+          },
+          "JUN": {
+            "dataPoints": [
+              {
+                "value": 3,
+                "color": "#3C32BC",
+                "label": "ENTERTAINMENT",
+                "subLabel": "3%"
+              },
+              {
+                "value": 5,
+                "color": "#FCB027",
+                "label": "GROCERIES",
+                "subLabel": "5%"
+              },
+              {
+                "value": 9,
+                "color": "#5A65FB",
+                "label": "MORTGAGE",
+                "subLabel": "9%"
+              }
+            ],
+            "fullCircleValue": "20",
+            "primaryValue": "$33,444",
+            "title": "Mortgage"
+          },
+          "graphType": "pie",
+          "size": "large"
+        }
+      ]
+    }
+  }
+}
+'''
+ 
+execution.setVariable("jsonString", jsonString)]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1qdat97" sourceRef="Task_0uocgas" targetRef="Task_0xgbkgx" />
+    <bpmn2:userTask id="Task_0xgbkgx" name="send the integration message jsonString">
+      <bpmn2:incoming>SequenceFlow_1qdat97</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1p74836</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1p74836" sourceRef="Task_0xgbkgx" targetRef="Task_1iew8yr" />
+    <bpmn2:userTask id="Task_1iew8yr" name="say that was a pie graph">
+      <bpmn2:incoming>SequenceFlow_1p74836</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1556b3s</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_0j9n75g">
+      <bpmn2:incoming>SequenceFlow_1556b3s</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1556b3s" sourceRef="Task_1iew8yr" targetRef="EndEvent_0j9n75g" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="180" y="170" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_094smei_di" bpmnElement="SequenceFlow_094smei">
+        <di:waypoint xsi:type="dc:Point" x="216" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="276" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="246" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0mgm3hh_di" bpmnElement="Task_077v440">
+        <dc:Bounds x="276" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ug1z4w_di" bpmnElement="SequenceFlow_0ug1z4w">
+        <di:waypoint xsi:type="dc:Point" x="396" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="435" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="415.5" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_1yrkivl_di" bpmnElement="Task_0uocgas">
+        <dc:Bounds x="435" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1qdat97_di" bpmnElement="SequenceFlow_1qdat97">
+        <di:waypoint xsi:type="dc:Point" x="555" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="610" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="582.5" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1ui36wg_di" bpmnElement="Task_0xgbkgx">
+        <dc:Bounds x="610" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1p74836_di" bpmnElement="SequenceFlow_1p74836">
+        <di:waypoint xsi:type="dc:Point" x="730" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="761" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="761" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="792" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="776" y="182" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0a0zovr_di" bpmnElement="Task_1iew8yr">
+        <dc:Bounds x="792" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0j9n75g_di" bpmnElement="EndEvent_0j9n75g">
+        <dc:Bounds x="946" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="964" y="210" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1556b3s_di" bpmnElement="SequenceFlow_1556b3s">
+        <di:waypoint xsi:type="dc:Point" x="912" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="946" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="929" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

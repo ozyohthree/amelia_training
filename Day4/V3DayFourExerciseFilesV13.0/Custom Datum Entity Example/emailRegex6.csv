@@ -1,0 +1,6 @@
+id,Email,EmailType
+1,\S+@gmail.com,GmailAccount
+2,\S+@google.com,GoogleAccount
+3,\S+@yahoo.com,YahooAccount
+4,\S+@msn.com,MSNAccount
+5,\S+@me.com,AppleAccount

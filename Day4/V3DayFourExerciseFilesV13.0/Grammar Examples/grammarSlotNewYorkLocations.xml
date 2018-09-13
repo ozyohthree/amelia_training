@@ -1,0 +1,21 @@
+<language-units>
+  <lu type="SLOT" name="new york tourist spot" principle="false" askType="DEFAULT">
+    <grammar><![CDATA[			[newYorkTouristSpot]
+				(brooklyn bridge)
+				(battery park)
+				(ellis island)
+				(statue *of liberty)
+				(museum *of natural history)
+				(museum of modern art)
+				(museum of $ANY $ANY)
+				(central park)
+				(*the highline)
+				(times square)
+				(broadway)
+				(*the whitney *museum)
+				(wall street)
+			;
+]]></grammar>
+    <customAskSentences/>
+  </lu>
+</language-units>

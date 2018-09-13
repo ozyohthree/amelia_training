@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="chatNotesClosedOpenClosed" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_1prr5cu</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1prr5cu" sourceRef="StartEvent_1" targetRef="Task_0n8v12w" />
+    <bpmn2:userTask id="Task_0n8v12w" name="say this is a test of the chat notes forcedOpenState attribute">
+      <bpmn2:incoming>SequenceFlow_1prr5cu</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0zt36pr</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0zt36pr" sourceRef="Task_0n8v12w" targetRef="Task_04cftfy" />
+    <bpmn2:scriptTask id="Task_04cftfy" name="creates chat notes 1" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_0zt36pr</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_057kwdj</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[import groovy.json.JsonOutput
+ 
+def payload = [
+    action       : 'addChatNotesIntegration',
+    componentType: 'ChatNote',
+    payload      : [
+        [
+        component    : 'ChatNote',
+        header       : 'Open Test 1',
+        title        : 'Open Test 1',
+        forceOpenState: "open",
+		actionProcess: [
+			actionName: 'buttonSubProcess',
+			//actionArguments execution scope var: value pair
+			actionArguments: [
+				username: "Brian"],
+			actionMessage: 'You have clicked edit'
+			],
+        subcomponents: [
+                     [
+            subcomponent: 'Markup',
+            markupType  : 'Default',
+            label       : 'Open Test 1',
+            value       : 'Open Test 1'
+            ]
+        ]
+ 
+        ]
+    ]
+]
+ 
+def jsonString = JsonOutput.toJson(payload)
+
+execution.setVariable('jsonString1',jsonString)]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_057kwdj" sourceRef="Task_04cftfy" targetRef="Task_1t8kxmt" />
+    <bpmn2:userTask id="Task_1t8kxmt" name="send the integration message jsonString1">
+      <bpmn2:incoming>SequenceFlow_057kwdj</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_00nl5ea</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_00nl5ea" sourceRef="Task_1t8kxmt" targetRef="Task_1nas69m" />
+    <bpmn2:userTask id="Task_1nas69m" name="ask &#34;Okay?&#34;">
+      <bpmn2:incoming>SequenceFlow_00nl5ea</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1pse0pc</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:scriptTask id="ScriptTask_1409sk4" name="creates chat notes 2" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1pse0pc</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1mr82mh</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[import groovy.json.JsonOutput
+ 
+def payload = [
+    action       : 'addChatNotesIntegration',
+    componentType: 'ChatNote',
+    payload      : [
+        [
+        component    : 'ChatNote',
+        header       : 'Open Test 2',
+        title        : 'Open Test 2',
+        forceOpenState: "open",
+		actionProcess: [
+			actionName: 'buttonSubProcess',
+			//actionArguments execution scope var: value pair
+			actionArguments: [
+				username: "Brian"],
+			actionMessage: 'You have clicked edit'
+			],
+        subcomponents: [
+                     [
+            subcomponent: 'Markup',
+            markupType  : 'Default',
+            label       : 'Open Test 2',
+            value       : 'Open Test 2'
+            ]
+        ]
+ 
+        ]
+    ]
+]
+ 
+def jsonString = JsonOutput.toJson(payload)
+
+execution.setVariable('jsonString2',jsonString)]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:userTask id="UserTask_16vhw6b" name="send the integration message jsonString2">
+      <bpmn2:incoming>SequenceFlow_1mr82mh</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1xxv9o9</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:userTask id="UserTask_019siwz" name="ask &#34;Okay?&#34;">
+      <bpmn2:incoming>SequenceFlow_1xxv9o9</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_12x27o3</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1mr82mh" sourceRef="ScriptTask_1409sk4" targetRef="UserTask_16vhw6b" />
+    <bpmn2:sequenceFlow id="SequenceFlow_1xxv9o9" sourceRef="UserTask_16vhw6b" targetRef="UserTask_019siwz" />
+    <bpmn2:sequenceFlow id="SequenceFlow_1pse0pc" sourceRef="Task_1nas69m" targetRef="ScriptTask_1409sk4" />
+    <bpmn2:scriptTask id="ScriptTask_18rf3cf" name="creates chat notes 3" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_12x27o3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1k1rrke</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[import groovy.json.JsonOutput
+ 
+def payload = [
+    action       : 'addChatNotesIntegration',
+    componentType: 'ChatNote',
+    payload      : [
+        [
+        component    : 'ChatNote',
+        header       : 'Open Test 3',
+        title        : 'Open Test 3',
+        forceOpenState: "closed",
+		actionProcess: [
+			actionName: 'buttonSubProcess',
+			//actionArguments execution scope var: value pair
+			actionArguments: [
+				username: "Brian"],
+			actionMessage: 'You have clicked edit'
+			],
+        subcomponents: [
+                     [
+            subcomponent: 'Markup',
+            markupType  : 'Default',
+            label       : 'Open Test 3',
+            value       : 'Open Test 3'
+            ]
+        ]
+ 
+        ]
+    ]
+]
+ 
+def jsonString = JsonOutput.toJson(payload)
+
+execution.setVariable('jsonString3',jsonString)]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:userTask id="UserTask_0kmjiw3" name="send the integration message jsonString3">
+      <bpmn2:incoming>SequenceFlow_1k1rrke</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_137oa7c</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:userTask id="UserTask_0fxime6" name="ask &#34;Okay?&#34;">
+      <bpmn2:incoming>SequenceFlow_137oa7c</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1elerw2</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1k1rrke" sourceRef="ScriptTask_18rf3cf" targetRef="UserTask_0kmjiw3" />
+    <bpmn2:sequenceFlow id="SequenceFlow_137oa7c" sourceRef="UserTask_0kmjiw3" targetRef="UserTask_0fxime6" />
+    <bpmn2:sequenceFlow id="SequenceFlow_12x27o3" sourceRef="UserTask_019siwz" targetRef="ScriptTask_18rf3cf" />
+    <bpmn2:scriptTask id="ScriptTask_1eib6ny" name="creates chat notes 4" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1elerw2</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_15jyyr3</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[import groovy.json.JsonOutput
+ 
+def payload = [
+    action       : 'addChatNotesIntegration',
+    componentType: 'ChatNote',
+    payload      : [
+        [
+        component    : 'ChatNote',
+        header       : 'Open Test 4',
+        title        : 'Open Test 4',
+        forceOpenState: "open",
+		actionProcess: [
+			actionName: 'buttonSubProcess',
+			//actionArguments execution scope var: value pair
+			actionArguments: [
+				username: "Brian"],
+			actionMessage: 'You have clicked edit'
+			],
+        subcomponents: [
+                     [
+            subcomponent: 'Markup',
+            markupType  : 'Default',
+            label       : 'Open Test 4',
+            value       : 'Open Test 4'
+            ]
+        ]
+ 
+        ]
+    ]
+]
+ 
+def jsonString = JsonOutput.toJson(payload)
+
+execution.setVariable('jsonString4',jsonString)]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:userTask id="UserTask_1di7fny" name="send the integration message jsonString4">
+      <bpmn2:incoming>SequenceFlow_15jyyr3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1r5nr4l</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:userTask id="UserTask_0lkycn9" name="ask &#34;Okay?&#34;">
+      <bpmn2:incoming>SequenceFlow_1r5nr4l</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0aiixpy</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_15jyyr3" sourceRef="ScriptTask_1eib6ny" targetRef="UserTask_1di7fny" />
+    <bpmn2:sequenceFlow id="SequenceFlow_1r5nr4l" sourceRef="UserTask_1di7fny" targetRef="UserTask_0lkycn9" />
+    <bpmn2:sequenceFlow id="SequenceFlow_1elerw2" sourceRef="UserTask_0fxime6" targetRef="ScriptTask_1eib6ny" />
+    <bpmn2:scriptTask id="ScriptTask_147ypyt" name="creates chat notes 5" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_0aiixpy</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_127si3f</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[import groovy.json.JsonOutput
+ 
+def payload = [
+    action       : 'addChatNotesIntegration',
+    componentType: 'ChatNote',
+    payload      : [
+        [
+        component    : 'ChatNote',
+        header       : 'Open Test 5',
+        title        : 'Open Test 5',
+        forceOpenState: "closed",
+		actionProcess: [
+			actionName: 'buttonSubProcess',
+			//actionArguments execution scope var: value pair
+			actionArguments: [
+				username: "Brian"],
+			actionMessage: 'You have clicked edit'
+			],
+        subcomponents: [
+                     [
+            subcomponent: 'Markup',
+            markupType  : 'Default',
+            label       : 'Open Test 5',
+            value       : 'Open Test 5'
+            ]
+        ]
+ 
+        ]
+    ]
+]
+ 
+def jsonString = JsonOutput.toJson(payload)
+println JsonOutput.prettyPrint(jsonString)
+ 
+execution.setVariable('jsonString5',jsonString)]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:userTask id="UserTask_03wykp4" name="send the integration message jsonString5">
+      <bpmn2:incoming>SequenceFlow_127si3f</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_173bo2h</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:userTask id="UserTask_1u5kjxk" name="say done">
+      <bpmn2:incoming>SequenceFlow_173bo2h</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0jevbq9</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_127si3f" sourceRef="ScriptTask_147ypyt" targetRef="UserTask_03wykp4" />
+    <bpmn2:sequenceFlow id="SequenceFlow_173bo2h" sourceRef="UserTask_03wykp4" targetRef="UserTask_1u5kjxk" />
+    <bpmn2:sequenceFlow id="SequenceFlow_0aiixpy" sourceRef="UserTask_0lkycn9" targetRef="ScriptTask_147ypyt" />
+    <bpmn2:endEvent id="EndEvent_1wsg7ij">
+      <bpmn2:incoming>SequenceFlow_0jevbq9</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_0jevbq9" sourceRef="UserTask_1u5kjxk" targetRef="EndEvent_1wsg7ij" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="180" y="170" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1prr5cu_di" bpmnElement="SequenceFlow_1prr5cu">
+        <di:waypoint xsi:type="dc:Point" x="216" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="261" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="238.5" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1ipvy6u_di" bpmnElement="Task_0n8v12w">
+        <dc:Bounds x="261" y="148" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0zt36pr_di" bpmnElement="SequenceFlow_0zt36pr">
+        <di:waypoint xsi:type="dc:Point" x="381" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="428" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="359.5" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_1c4xwih_di" bpmnElement="Task_04cftfy">
+        <dc:Bounds x="428" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_057kwdj_di" bpmnElement="SequenceFlow_057kwdj">
+        <di:waypoint xsi:type="dc:Point" x="548" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="612" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="535" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1hvkbh2_di" bpmnElement="Task_1t8kxmt">
+        <dc:Bounds x="612" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_00nl5ea_di" bpmnElement="SequenceFlow_00nl5ea">
+        <di:waypoint xsi:type="dc:Point" x="732" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="767" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="749.5" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_173z1d3_di" bpmnElement="Task_1nas69m">
+        <dc:Bounds x="767" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ScriptTask_1409sk4_di" bpmnElement="ScriptTask_1409sk4">
+        <dc:Bounds x="428" y="300" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_16vhw6b_di" bpmnElement="UserTask_16vhw6b">
+        <dc:Bounds x="612" y="300" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_019siwz_di" bpmnElement="UserTask_019siwz">
+        <dc:Bounds x="767" y="300" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1mr82mh_di" bpmnElement="SequenceFlow_1mr82mh">
+        <di:waypoint xsi:type="dc:Point" x="548" y="340" />
+        <di:waypoint xsi:type="dc:Point" x="612" y="340" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="535" y="319" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1xxv9o9_di" bpmnElement="SequenceFlow_1xxv9o9">
+        <di:waypoint xsi:type="dc:Point" x="732" y="340" />
+        <di:waypoint xsi:type="dc:Point" x="767" y="340" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="749.5" y="319" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1pse0pc_di" bpmnElement="SequenceFlow_1pse0pc">
+        <di:waypoint xsi:type="dc:Point" x="827" y="228" />
+        <di:waypoint xsi:type="dc:Point" x="827" y="257" />
+        <di:waypoint xsi:type="dc:Point" x="520" y="257" />
+        <di:waypoint xsi:type="dc:Point" x="520" y="300" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="673.5" y="236" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_18rf3cf_di" bpmnElement="ScriptTask_18rf3cf">
+        <dc:Bounds x="428" y="452" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0kmjiw3_di" bpmnElement="UserTask_0kmjiw3">
+        <dc:Bounds x="612" y="452" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0fxime6_di" bpmnElement="UserTask_0fxime6">
+        <dc:Bounds x="767" y="452" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1k1rrke_di" bpmnElement="SequenceFlow_1k1rrke">
+        <di:waypoint xsi:type="dc:Point" x="548" y="492" />
+        <di:waypoint xsi:type="dc:Point" x="582" y="492" />
+        <di:waypoint xsi:type="dc:Point" x="582" y="492" />
+        <di:waypoint xsi:type="dc:Point" x="612" y="492" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="597" y="486" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_137oa7c_di" bpmnElement="SequenceFlow_137oa7c">
+        <di:waypoint xsi:type="dc:Point" x="732" y="492" />
+        <di:waypoint xsi:type="dc:Point" x="767" y="492" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="749.5" y="471" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_12x27o3_di" bpmnElement="SequenceFlow_12x27o3">
+        <di:waypoint xsi:type="dc:Point" x="827" y="380" />
+        <di:waypoint xsi:type="dc:Point" x="827" y="423" />
+        <di:waypoint xsi:type="dc:Point" x="488" y="423" />
+        <di:waypoint xsi:type="dc:Point" x="488" y="452" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="657.5" y="402" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_1eib6ny_di" bpmnElement="ScriptTask_1eib6ny">
+        <dc:Bounds x="428" y="594" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1di7fny_di" bpmnElement="UserTask_1di7fny">
+        <dc:Bounds x="612" y="594" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0lkycn9_di" bpmnElement="UserTask_0lkycn9">
+        <dc:Bounds x="767" y="594" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_15jyyr3_di" bpmnElement="SequenceFlow_15jyyr3">
+        <di:waypoint xsi:type="dc:Point" x="548" y="634" />
+        <di:waypoint xsi:type="dc:Point" x="582" y="634" />
+        <di:waypoint xsi:type="dc:Point" x="582" y="634" />
+        <di:waypoint xsi:type="dc:Point" x="612" y="634" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="597" y="628" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1r5nr4l_di" bpmnElement="SequenceFlow_1r5nr4l">
+        <di:waypoint xsi:type="dc:Point" x="732" y="634" />
+        <di:waypoint xsi:type="dc:Point" x="767" y="634" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="749.5" y="613" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1elerw2_di" bpmnElement="SequenceFlow_1elerw2">
+        <di:waypoint xsi:type="dc:Point" x="827" y="532" />
+        <di:waypoint xsi:type="dc:Point" x="827" y="572" />
+        <di:waypoint xsi:type="dc:Point" x="488" y="572" />
+        <di:waypoint xsi:type="dc:Point" x="488" y="594" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="657.5" y="551" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_147ypyt_di" bpmnElement="ScriptTask_147ypyt">
+        <dc:Bounds x="428" y="723" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_03wykp4_di" bpmnElement="UserTask_03wykp4">
+        <dc:Bounds x="612" y="723" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1u5kjxk_di" bpmnElement="UserTask_1u5kjxk">
+        <dc:Bounds x="767" y="723" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_127si3f_di" bpmnElement="SequenceFlow_127si3f">
+        <di:waypoint xsi:type="dc:Point" x="548" y="763" />
+        <di:waypoint xsi:type="dc:Point" x="582" y="763" />
+        <di:waypoint xsi:type="dc:Point" x="582" y="763" />
+        <di:waypoint xsi:type="dc:Point" x="612" y="763" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="597" y="757" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_173bo2h_di" bpmnElement="SequenceFlow_173bo2h">
+        <di:waypoint xsi:type="dc:Point" x="732" y="763" />
+        <di:waypoint xsi:type="dc:Point" x="767" y="763" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="749.5" y="742" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0aiixpy_di" bpmnElement="SequenceFlow_0aiixpy">
+        <di:waypoint xsi:type="dc:Point" x="827" y="674" />
+        <di:waypoint xsi:type="dc:Point" x="827" y="702" />
+        <di:waypoint xsi:type="dc:Point" x="488" y="702" />
+        <di:waypoint xsi:type="dc:Point" x="488" y="723" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="657.5" y="681" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1wsg7ij_di" bpmnElement="EndEvent_1wsg7ij">
+        <dc:Bounds x="939.4005322687957" y="745" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="957.4005322687957" y="785" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0jevbq9_di" bpmnElement="SequenceFlow_0jevbq9">
+        <di:waypoint xsi:type="dc:Point" x="887" y="763" />
+        <di:waypoint xsi:type="dc:Point" x="939" y="763" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="913" y="742" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

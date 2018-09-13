@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring" xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+          http://camel.apache.org/schema/spring
+          http://camel.apache.org/schema/spring/camel-spring.xsd
+">
+    <camel:camelContext id="d3ef41d0-8d42-49ba-bb83-5a8d2b956b5b">
+        <camel:route id="route1">
+            <camel:description layoutX="80" layoutY="30" layoutWidth="970" layoutHeight="610"/>
+            <camel:from id="mainRouteStart" uri="direct:start">
+                <camel:description layoutX="110" layoutY="180" layoutWidth="98" layoutHeight="74"/>
+            </camel:from>
+            <camel:to id="64895f9b-f24c-411b-905c-180565b7e147" uri="https4://opentdb.com/api.php?amount=1&amp;category=18&amp;type=multiple">
+                <camel:description layoutX="266" layoutY="180" layoutWidth="98" layoutHeight="74"/>
+            </camel:to>
+            <camel:convertBodyTo id="f80d6c1c-a87c-4ac8-b8b7-63ac1541f413" type="java.lang.String">
+                <camel:description layoutX="425" layoutY="180" layoutWidth="98" layoutHeight="74"/>
+            </camel:convertBodyTo>
+            <camel:to id="c45a9e7a-0103-4693-9be2-d0a9267398b5" uri="bean:varpop?method=moveToOutboundVariables(&apos;_body_&apos;)">
+                <camel:description layoutX="811" layoutY="180" layoutWidth="98" layoutHeight="74"/>
+            </camel:to>
+        </camel:route>
+    </camel:camelContext>
+</beans>

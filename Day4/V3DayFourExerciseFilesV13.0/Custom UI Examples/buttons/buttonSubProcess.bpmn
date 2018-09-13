@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:prop="http://www.ipsoft.com/schema/bpmn/prop" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="Process_1" name="buttonSubProcess" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_1xwjdyo</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:userTask id="Task_1c9u4wd" name="say this process is running because the pencil(edit) button was selected in the chat note">
+      <bpmn2:incoming>SequenceFlow_1phebbd</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0qpqotq</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0qpqotq" sourceRef="Task_1c9u4wd" targetRef="Task_0limol6" />
+    <bpmn2:userTask id="Task_0limol6" name="ask &#34;Are you ready to go back to the prior BPN? (Please type yes and you will be returned to the ask task in the first BPN.)&#34;">
+      <bpmn2:extensionElements>
+        <prop:property name="ask_first_pass_behavior" value="AlwaysAsk" />
+        <prop:property name="ask_subsequent_pass_behavior" value="AlwaysAsk" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_0qpqotq</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0thi6u6</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:endEvent id="EndEvent_1viw04k">
+      <bpmn2:incoming>SequenceFlow_0thi6u6</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_0thi6u6" sourceRef="Task_0limol6" targetRef="EndEvent_1viw04k" />
+    <bpmn2:sequenceFlow id="SequenceFlow_1xwjdyo" sourceRef="StartEvent_1" targetRef="Task_0xoakn5" />
+    <bpmn2:scriptTask id="Task_0xoakn5" name="check username passed from the first task" scriptFormat="groovy">
+      <bpmn2:extensionElements>
+        <prop:property name="included_scripts" value="" />
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1xwjdyo</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1gyauw3</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[username = execution.getVariable('username')
+
+if(username.matches('Brian')){
+    execution.setVariable('username', "Brian Kuchta")
+}]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1gyauw3" sourceRef="Task_0xoakn5" targetRef="Task_0c86q7q" />
+    <bpmn2:sequenceFlow id="SequenceFlow_1phebbd" sourceRef="Task_0c86q7q" targetRef="Task_1c9u4wd" />
+    <bpmn2:userTask id="Task_0c86q7q" name="say the user name passed from the first task and transformed in the script task is ${username}">
+      <bpmn2:incoming>SequenceFlow_1gyauw3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1phebbd</bpmn2:outgoing>
+    </bpmn2:userTask>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="-70" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-97" y="206" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0zwhefc_di" bpmnElement="Task_1c9u4wd">
+        <dc:Bounds x="489" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0qpqotq_di" bpmnElement="SequenceFlow_0qpqotq">
+        <di:waypoint xsi:type="dc:Point" x="609" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="677" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="598" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1t6pfnz_di" bpmnElement="Task_0limol6">
+        <dc:Bounds x="677" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1viw04k_di" bpmnElement="EndEvent_1viw04k">
+        <dc:Bounds x="838" y="170" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="811" y="210" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0thi6u6_di" bpmnElement="SequenceFlow_0thi6u6">
+        <di:waypoint xsi:type="dc:Point" x="797" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="838" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="773" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1xwjdyo_di" bpmnElement="SequenceFlow_1xwjdyo">
+        <di:waypoint xsi:type="dc:Point" x="-34" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="90" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-17" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ScriptTask_14eakw2_di" bpmnElement="Task_0xoakn5">
+        <dc:Bounds x="90" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1gyauw3_di" bpmnElement="SequenceFlow_1gyauw3">
+        <di:waypoint xsi:type="dc:Point" x="210" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="284" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="202" y="167" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1phebbd_di" bpmnElement="SequenceFlow_1phebbd">
+        <di:waypoint xsi:type="dc:Point" x="404" y="188" />
+        <di:waypoint xsi:type="dc:Point" x="489" y="188" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="446.5" y="167" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1rh9pdt_di" bpmnElement="Task_0c86q7q">
+        <dc:Bounds x="284" y="148" width="120" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
